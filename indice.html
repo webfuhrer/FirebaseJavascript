@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyBhMLoALZmd8VHG4-_aDReS7_v322eNWPQ",
+    authDomain: "pruebasfirebase-dca37.firebaseapp.com",
+    databaseURL: "https://pruebasfirebase-dca37-default-rtdb.firebaseio.com",
+    projectId: "pruebasfirebase-dca37",
+    storageBucket: "pruebasfirebase-dca37.appspot.com",
+    messagingSenderId: "243047599653",
+    appId: "1:243047599653:web:91b60809722982dc56f9cc"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+</script>
+	
+
+
+<script src="https://www.gstatic.com/firebasejs/8.2.10/firebase-database.js"></script>
+<script>
+function inicializarBD()
+{
+var id=Math.random()+"";
+id =id.replace(".", "X");
+var nombre=document.getElementById("nombre").value;
+var email=document.getElementById("email").value;
+var database = firebase.database();
+database.ref('usuarios' ).push().set({
+    username: nombre,
+    email: email,
+    profile_picture : "ruta de la imagen"
+  });
+}
+function cargarOyente()
+{
+
+
+	var referencia_usuarios = firebase.database().ref('usuarios');
+	referencia_usuarios.on('value', (snapshot) => {
+	snapshot.forEach((hijo)=>
+		{//console.log(hijo.key);
+		console.log(hijo.val().email);
+		}
+	)
+  
+});
+}
+</script>
+</head>
+<body onload="cargarOyente()">
+<input type="text" id="nombre" placeholder="Introduce el nombre">
+<input type="text" id="email" placeholder="Introduce el email">
+<button onclick="inicializarBD()">Grabar</button>
+</body>
+</html>
