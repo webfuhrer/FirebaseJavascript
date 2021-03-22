@@ -41,13 +41,14 @@ database.ref('usuarios' ).push().set({
 }
 function cargarOyente()
 {
-
-
 	var referencia_usuarios = firebase.database().ref('usuarios');
 	referencia_usuarios.on('value', (snapshot) => {
+	document.getElementById("capa_contactos").innerHTML="";
 	snapshot.forEach((hijo)=>
 		{//console.log(hijo.key);
-		console.log(hijo.val().email);
+		//console.log(hijo.val().email);
+		document.getElementById("capa_contactos").innerHTML+="<tr><td> "+
+		hijo.val().username+"</td><td>"+hijo.val().email+"</td></tr>";
 		}
 	)
   
@@ -59,5 +60,7 @@ function cargarOyente()
 <input type="text" id="nombre" placeholder="Introduce el nombre">
 <input type="text" id="email" placeholder="Introduce el email">
 <button onclick="inicializarBD()">Grabar</button>
+<table id="capa_contactos">
+</table>
 </body>
 </html>
